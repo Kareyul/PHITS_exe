@@ -1,0 +1,404 @@
+$OMP = 6
+$ 60 kVp 2 mAs
+
+[ T i t l e ]
+Chest phantom exposed in X-Ray
+
+[ P a r a m e t e r s ]
+ icntl    =           0     # (D=0) 3:ECH 5:NOR 6:SRC 7,8:GSH 11:DSH 12:DUMP
+ maxcas   =      100000     # (D=10) number of particles per one batch
+ maxbch   =        2     # (D=10) number of batches
+ negs     =           1     # (D=0) =1 EGS photon and electron
+ nlost    =        50000    # (D=10) number of lost particles
+ file(6)  = phits.out       # (D=phits.out) general output file name
+ file(7)  = xsdir.jnd # (D=c:/phits/data/xsdir.jnd) nuclear data input file name
+ file(20) = egs # (D=c:/phits/XS/egs) EGS library data folder name
+
+[ S o u r c e ]
+ s-type = 4
+     x0 =      0.00000
+     y0 =    105.00000
+     z0 =      0.00000
+     z1 =      0.00000
+     r0 =      0.0
+    dir =      0.0
+    phi =  90
+    dom =  15
+   proj =  photon
+ infl:{source60_kV.inp}   $insert kVp here
+totfact = 0.00200   $insert mAs here
+	 
+[ M a t e r i a l ]
+MAT[ 1 ]   # Water
+           1H         2.0000000E+00
+          16O         1.0000000E+00
+
+MAT[ 2 ]   # Air (1.20e-3 g/cm3)
+          14N         8.0000000E+00
+          16O         2.0000000E+00
+
+MAT[ 3 ]   # Tungsten target
+         180W         1.2000000E-01
+         182W         2.6498000E+01
+         183W         1.4314000E+01
+         184W         3.0642000E+01
+         186W         2.8426000E+01
+
+MAT[ 4 ]   # Copper target
+          63Cu        6.9170000E+01
+          65Cu        3.0830000E+01
+
+MAT[ 5 ]   # Collimator (17g/cm3, from AAPM report 72, TG-50)
+         184W        -9.0500000E+01
+          58Ni        -6.5000000E+00
+          56Fe        -3.0000000E+00
+
+MAT[ 6 ]   # Flattening filter
+          63Cu        6.9170000E+01
+          65Cu        3.0830000E+01
+         
+m7       1000         -10.4 $ Heart Tissue (ICRP 143) H_1=10.4 C_6=13.5 N_7=2.9 O_8=72.1 Na_11=0.1 P_15=0.2 S_16= 0.2 Cl_17=0.2 Fe_26=0.3 I_53=0.3 
+         6000         -13.5 $ Density(g/cm3) = 1.04 (ICRP 143) (checked)
+         7000         -2.9  
+         8000         -72.1
+         11000        -0.1
+         15000        -0.2
+         16000        -0.2
+         17000        -0.2
+         26000        -0.3
+         
+m8       1000        -10.2 $Heart Blood 
+         6000        -11.0 $ Density(g/cm3) = 1.059 (ICRP 89)
+         7000        -3.3           
+         8000        -72.0
+         11000       -0.1
+         15000       -0.1   
+         16000       -0.2
+         17000       -0.3
+         19000       -0.2
+         26000       -0.1
+         
+m9       1000        -10.3 $ Lungs Tissue (checked) H_1=10.3 C_6=10.7 N_7=3.2 O_8=74.8 Na_11=0.2 P_15=0.2  S_16=0.3 Cl_17=0.3 Fe_26= 0.2 (checked)
+         6000         -10.7 $Density(g/cm3) = 0.393
+         7000         -3.2
+         8000         -74.8
+         11000       -0.2
+         15000       -0.2
+         16000       -0.3
+         17000       -0.3
+         26000       -0.2
+
+m11      1000        -7.8 $ Ribs (1st - 12th)
+         6000        -26.5 $ Density(g/cm3) = 1.251 (ICRP 143)
+         7000        -3.8
+         8000        -50.5
+         11000       -0.1
+         12000       -0.2
+         15000       -3.7
+         16000       -0.2
+         17000       -0.0
+         19000       -7.1
+         20000       -0.0
+
+m12      1000        -5.6 $ Ribs (10th - 12th)
+         6000        -23.5 $ Density(g/cm3) = 1.52
+         7000        -4.0
+         8000        -43.4
+         11000       -0.1
+         12000       -0.1
+         15000       -7.2
+         16000       -0.3
+         17000       -0.1
+         19000       -0.1
+         20000       -15.6
+
+m13      1000        -7.8 $ Cervical vertebrae    H1-7.8 C6-26.5 N_7-3.8 O_8-50.5 Na_11-0.1 Mg12-0.2 P_15-3.7 S_16-0.2 Cl_17-0.0 K_19-7.1 (ICRP 143)
+         6000         -26.5 $ Density(g/cm3) = 1.21 (checked)
+         7000         -3.8
+         8000         -50.5
+         11000       -0.1
+         12000       -0.2
+         15000       -3.7
+         16000       -0.2
+         19000       -7.1
+ 
+m14      1000        -7.4 $ Thoracic   H_1=7.4 C_6=25.1 N_7=3.9 O_8=50.7 Na_11=0.1 Mg_12=0.2 P_15=4.1 S_16 = 0.3 K_19= 8.1
+         6000         -25.1 $ Density(g/cm3) = 1.169 (checked)
+         7000         -3.9
+         8000         -50.7
+         11000       -0.1
+         12000       -0.2
+         15000       -4.1
+         16000       -0.3
+         19000       -8.1
+
+m15      1000        -9.6 $ Intervertebral disks    H_1=9.6 C_6=10 N_7=2.3 O_8=74.4 Na_11=0.5 P_15=2.1 S_16=0.9 Cl_17=0.3 
+         6000         -10 $ Density(g/cm3) = 1.10 (ICRP 143) 
+         7000         -2.3
+         8000         -74.4
+         11000       -0.5
+         15000       -2.1
+         16000       -0.9
+         17000       -0.3     
+
+m16     1000         -10.5 $ SOFT TISSUE (ICRP 143)   H_1=10.5 C_6=24.6 N_7=2.7 O_8=61.2 Na_11=0.1 P_15=0.2 S_16=0.3 Cl_17=0.2 Ca_20=0.2 (checked)
+        6000         -24.6  $ Density(g/cm3) = 1.03 (checked)
+        7000         -2.7
+        8000         -61.2
+        11000        -0.1
+        15000        -0.2
+        16000        -0.3
+        17000        -0.2
+        20000        -0.2
+        
+
+m17     1000         -10.0 $ Skin      H_1=10 C_6=20 N_7=4.2 O_8=64.9 Na_11=0.2 P_15=0.1 S_16=0.2 Cl_17=0.3  Fe_26=0.1 
+        6000         -20.0 $ Density(g/cm3) = 1.1 (ICRP 143) (checked)
+        7000         -4.2
+        8000         -64.9
+        11000        -0.2
+        15000        -0.1
+        16000        -0.2
+        17000        -0.3
+        26000        -0.1
+
+
+[ Transform ] 
+*tr1    0  0  -5    0  0  0    0  0  0  0  0  0    2
+*tr2    0  0  -9    0  0  0    0  0  0  0  0  0    2
+*tr3    0  0  -20   0  0  0    0  0  0  0  0  0    2
+
+[ S u r f a c e ]
+
+$ X-Ray 
+ 999           so  10000.0
+
+$Left Lung infants
+100          sq 0.02578751203 0.118583817 0.01036889417 0 0 0 -1 2 1 -0.5
+101          px 0.9367
+102          pz -0.5
+
+$Right Lung
+110          sq 0.02578751203 0.118583817 0.00999672034 0 0 0 -1 -2 1 -0.5
+111          px -0.9367
+112          pz -0.5
+
+$ Sphere for outside of the heart in the lung(r_O = 2.84cm) $ infants
+ 200          s 0.9367 0.0 3.9 2.835
+
+$ HEART(r=2.81cm)
+ 210          s 0.9367 0.9 3.9 2.809 $ Heart tissue(r_H)
+ 211          s 0.9367 0.9 3.9 2.218 $ Blood inside of the heart (r_B)
+
+$ SPINE      x_0, y_0 R
+300          c/z 0 -3 1.152
+301          pz -15.612
+302          pz -15.15
+303          pz -14.161
+304          pz -13.699
+305          pz -12.71
+306          pz -12.248
+307          pz -11.259
+308          pz -10.791
+309          pz -9.808
+310          pz -9.346
+311          pz -8.357
+312          pz -7.972
+313          pz -7.276
+314          pz -6.891
+315          pz -6.195
+316          pz -5.81
+317          pz -5.114
+318          pz -4.729
+319          pz -4.033
+320          pz -3.648
+321          pz -2.952
+322          pz -2.567
+323          pz -1.871
+324          pz -1.486
+325          pz -0.79
+326          pz -0.405
+327          pz 0.291
+328          pz 0.676
+329          pz 1.372
+330          pz 1.757
+331          pz 2.453
+332          pz 2.838
+333          pz 3.534
+334          pz 3.919
+335          pz 4.615
+336          pz 5.00
+
+
+$ Rib 12 
+400 sq 0.01750 0.06200 0 0 0 0 -1 0 1.00 0
+401 sq 0.01350 0.05100 0 0 0 0 -1 0 1.00 0
+402 pz -7.900
+403 pz -7.300
+480 py -2
+$Rib 11
+404 sq 0.01750 0.06200 0 0 0 0 -1 0 1.00 0
+405 sq 0.01350 0.05100 0 0 0 0 -1 0 1.00 0
+406 pz -6.900
+407 pz -6.300
+490 py -0.55    
+$Rib 10
+408 sq 0.01750 0.06200 0 0 0 0 -1 0 1.00 0
+409 sq 0.01350 0.05100 0 0 0 0 -1 0 1.00 0
+410 pz -5.800
+411 pz -5.200
+$Rib 9
+412 sq 0.01750 0.06200 0 0 0 0 -1 0 1.10 0
+413 sq 0.01350 0.05100 0 0 0 0 -1 0 1.10 0
+414 pz -4.700
+415 pz -4.100
+$Rib 8
+416 sq 0.01850 0.06500 0 0 0 0 -1 0 0.90 0
+417 sq 0.01450 0.05400 0 0 0 0 -1 0 0.90 0
+418 pz -3.650
+419 pz -3.050
+$Rib 7
+420 sq 0.01900 0.06700 0 0 0 0 -1 0  0.88 0
+421 sq 0.01500 0.05500 0 0 0 0 -1 0  0.88 0
+422 pz -2.500     
+423 pz -1.900     
+$Rib 6
+424 sq 0.01980 0.07000 0 0 0 0 -1 0 0.8 0
+425 sq 0.01560 0.05750 0 0 0 0 -1 0 0.8 0
+426 pz -1.500
+427 pz -0.900
+$Rib 5
+428 sq 0.02060 0.07300 0 0 0 0 -1 0 0.7 0
+429 sq 0.01620 0.06000 0 0 0 0 -1 0 0.7 0
+430 pz -0.450
+431 pz  0.150
+$Rib 4
+432 sq 0.02250 0.07850 0 0 0 0 -1 0 0.6 0  
+433 sq 0.01780 0.06500 0 0 0 0 -1 0 0.6 0  
+434 pz 0.650
+435 pz 1.250
+$Rib3
+436 sq 0.02450 0.08500 0 0 0 0 -1 0 0.4 0  
+437 sq 0.01950 0.07100 0 0 0 0 -1 0 0.4 0  
+438 pz 1.850
+439 pz 2.450
+$Rib2
+440 sq 0.02680 0.09300 0 0 0 0 -1 0 0.2 0
+441 sq 0.02140 0.07750 0 0 0 0 -1 0 0.2 0
+442 pz 2.800
+443 pz 3.400
+$Rib1
+444 sq 0.03500 0.11800 0 0 0 0 -1 0 -0.1 0  
+445 sq 0.02950 0.10200 0 0 0 0 -1 0 -0.1 0  
+446 pz 3.900     
+447 pz 4.500
+
+
+$ Sternum infant
+450 sq 0.02578751203 0.118583817 0.01036889417 0 0 0 -1 0 2.40 -0.30
+451 sq 0.02578751203 0.118583817 0.01036889417 0 0 0 -1 0 2.10 -0.30
+452 px -1.0
+453 px  1.0
+454 pz 2.5
+455 pz 19.5
+456 py 0
+
+$ TRUNK infants
+ 900          sq 0.00793969 0.01824209 0 0 0 0 -1 0 0 0
+ 901          pz -8
+ 902          pz 8
+
+
+
+[ C e l l ]
+ $1          3 -19.25 1 -2 -4  trcl=2 $ W for X-ray generator 
+ $2          4 -8.94  2 -3 -4  trcl=2 $ Cu for X-ray generator 
+ 98          2 -1.20e-3   -999 #90 #1000 #1001 #2000 #2001 #3011 #3013 #3015 #3017 #3019 #3021 #3023 #3025 #3027 #3029 #3031 #3033 #4000 #4001 #4002 #4003 #4004 
+      #4005 #4006 #4007 #4008 #4009 #4010 #4011 #4050 $ Air  #4 #5 #6 #7 #8
+ 99        -1        999      $ Outer region
+ $3          5 -17.0  21 22 -23 -24  trcl=2 $ Primary collimator 
+ $4          5 -17.0  -31  trcl=2 $ Movable collimator (X-1) 
+ $5          5 -17.0  -32  trcl=2 $ Movable collimator (X-2) 
+ $6          5 -17.0  -33  trcl=2 $ Movable collimator (Y-1) 
+ $7          5 -17.0  -34  trcl=2 $ Movable collimator (Y-2)
+ $8          6 -8.94  -35  trcl=2 $ Flattening filter 
+ 
+1000       9 -0.393 -100 101 102 200 trcl=1 $left lung (positive-x side)
+1001       9 -0.393 -110 -111 112 200 trcl=1 $right lung (negative-x side)
+2000       7 -1.05 -210 211 #1000 #1001  trcl=1 $heart tissue 
+2001       8 -1.06 -211  #1000 #1001 trcl=1 $heart blood 
+
+$ SPINE
+ 3011       14 -1.169 -300 312 -313 301 $Thoracic vertebrae 12 
+  3012       15 -1.10 -300 313 -314 302 $Disc 18 
+ 3013       14 -1.169 -300 314 -315  $Thoracic vertebrae 11 
+  3014       15 -1.10 -300 315 -316 $Disc 17 
+ 3015       14 -1.169 -300 316 -317 $Thoracic vertebrae 10 
+  3016       15 -1.10 -300 317 -318 $Disc 16 
+ 3017       14 -1.169 -300 318 -319 $Thoracic vertebrae 9
+  3018       15 -1.10 -300 319 -320 $Disc 15 
+ 3019       14 -1.169 -300 320 -321 $Thoracic vertebrae 8 
+  3020       15 -1.10 -300 321 -322 $Disc 14 
+ 3021       14 -1.169 -300 322 -323 $Thoracic vertebrae 7 
+  3022       15 -1.10 -300 323 -324 $Disc 13 
+ 3023       14 -1.169 -300 324 -325  $Thoracic vertebrae 6 
+  3024       15 -1.10 -300 325 -326 $Disc 12 
+ 3025       14 -1.169 -300 326 -327 $Thoracic vertebrae 5 
+  3026       15 -1.10 -300 327 -328 $Disc 11 
+ 3027       14 -1.169 -300 328 -329 $Thoracic vertebrae 4 
+  3028       15 -1.10 -300 329 -330 $Disc 10 
+ 3029       14 -1.169 -300 330 -331 $Thoracic vertebrae 3 
+  3030       15 -1.10 -300 331 -332 $Disc 9 
+ 3031       14 -1.169 -300 332 -333 $Thoracic vertebrae 2 
+  3032       15 -1.10 -300 333 -334 $Disc 8 
+ 3033       14 -1.169 -300 334 -335 $Thoracic vertebrae 1 
+  3034       15 -1.10 -300 335 -336 $Disc 7 
+
+$RIBS
+4000 11 -1.52 400 -401 402 -403 -480 #4050  
+4001 11 -1.52 404 -405 406 -407 -490 #4050  
+4002 11 -1.52 408 -409 410 -411 #4050
+4003 11 -1.52 412 -413 414 -415 #4050
+4004 11 -1.52 416 -417 418 -419 #4050
+4005 11 -1.52 420 -421 422 -423 #4050
+4006 11 -1.52 424 -425 426 -427 #4050
+4007 11 -1.52 428 -429 430 -431 #4050
+4008 11 -1.52 432 -433 434 -435 #4050
+4009 11 -1.52 436 -437 438 -439 #4050
+4010 11 -1.52 440 -441 442 -443 #4050
+4011 11 -1.52 444 -445 446 -447 #4050
+
+$ STERNUM
+ 4050 11 -1.251 -450 451 452 -453 454 -455 456 trcl=1 
+
+$ TRUNK
+ 90 16 -1.03 -900 901 -902 #1000 #1001 #2000 #2001 #3011 #3013 #3015 #3017 #3019 #3021 #3023 #3025 #3027 #3029 #3031 #3033 #4000 #4001 #4002 #4003 #4004 
+      #4005 #4006 #4007 #4008 #4009 #4010 #4011 #4050 
+ 
+
+[ T - T r a c k ] $AP detector view
+    title = Track in xyz mesh
+     mesh =  xyz            # mesh type is xyz scoring mesh
+   x-type =    2            # x-mesh is linear given by xmin, xmax and nx
+     xmin =  -10.00000      # minimum value of x-mesh points
+     xmax =   10.00000      # maximum value of x-mesh points
+       nx =  200            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin =  -6.30           # minimum value of y-mesh points
+     ymax =  -6.25           # maximum value of y-mesh points
+       ny =  200            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =   -10.0000      # minimum value of z-mesh points
+     zmax =   10.00000      # maximum value of z-mesh points
+       nz =  200            # number of z-mesh points
+   e-type =    1            # e-mesh is given by the below data
+       ne =    1            # number of e-mesh points
+             0.0  1000.0
+     unit =    1            # unit is [1/cm^2/source]
+  2D-type =    3            # 1:Cont, 2:Clust, 3:Color, 4:xyz, 5:mat, 6:Clust+Cont, 7:Col+Cont
+     axis =   xz            # axis of output
+     file = ResultAPXrayImage60kV.out    # file name of output for the above axis
+     part =  photon 
+    gshow =    1            # 0: no 1:bnd, 2:bnd+mat, 3:bnd+reg 4:bnd+lat
+   vtkout =    1
+[END]
